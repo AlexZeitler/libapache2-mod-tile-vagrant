@@ -23,6 +23,9 @@ apt-get update
 export DEBIAN_FRONTEND=noninteractive
 apt-get install -y libapache2-mod-tile
 
+# Need to add the port to the url ...
+sed -i 's/localhost/localhost:8080/g' /var/www/osm/slippymap.html
+
 wget http://download.geofabrik.de/openstreetmap/europe/ireland-and-northern-ireland.osm.pbf
 sudo -u postgres osm2pgsql --slim -C 8000 --cache-strategy sparse --number-processes 6 ireland-and-northern-ireland.osm.pbf
 touch /var/lib/mod_tile/planet-import-complete
