@@ -51,3 +51,6 @@ service renderd restart
 # Pre-render the tiles 0-5
 render_list -n 8 -a -z 0 -Z 5 -s /var/run/renderd/renderd.sock
 service renderd restart
+# Need update the apache config to allow cross origin sharing
+sed -i 's/LogLevel info/LogLevel info\n    <IfModule mod_headers.c>\n        <LocationMatch "\.(png)$">\n           Header set Access-Control-Allow-Origin "\*"\n        <\/LocationMatch>\n    <\/IfModule>/g' /etc/apache2/sites-enabled/tileserver_site
+service apache2 restart
