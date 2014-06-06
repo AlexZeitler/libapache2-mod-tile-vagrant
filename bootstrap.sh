@@ -26,6 +26,9 @@ apt-get install -y libapache2-mod-tile
 # Need to add the port to the url ...
 sed -i 's/localhost/localhost:8080/g' /var/www/osm/slippymap.html
 
+# Adjust the tile size
+sed -i '$ a\TILESIZE=256' /etc/renderd.conf
+
 # Get map data for north america
 wget http://download.geofabrik.de/north-america-latest.osm.pbf
 
