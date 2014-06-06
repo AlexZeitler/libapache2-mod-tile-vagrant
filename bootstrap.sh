@@ -48,3 +48,6 @@ sudo -u postgres psql -d gis -c "ALTER TABLE spatial_ref_sys OWNER TO \"www-data
 
 touch /var/lib/mod_tile/planet-import-complete
 service renderd restart
+# Pre-render the tiles 0-5
+render_list -n 8 -a -z 0 -Z 5 -s /var/run/renderd/renderd.sock
+service renderd restart
