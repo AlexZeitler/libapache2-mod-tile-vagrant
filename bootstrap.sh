@@ -26,7 +26,11 @@ apt-get install -y libapache2-mod-tile
 # Need to add the port to the url ...
 sed -i 's/localhost/localhost:8080/g' /var/www/osm/slippymap.html
 
-wget http://download.geofabrik.de/openstreetmap/europe/ireland-and-northern-ireland.osm.pbf
-sudo -u postgres osm2pgsql --slim -C 8000 --cache-strategy sparse --number-processes 6 ireland-and-northern-ireland.osm.pbf
+# Get map data for north america
+wget http://download.geofabrik.de/north-america-latest.osm.pbf
+
+# Note 8000 is 8gb of RAM for cache and 6 is the number of processors to use. 
+# So if running in smaller VM reduce as appropriate.
+sudo -u postgres osm2pgsql --slim -C 9000 --cache-strategy sparse --number-processes 6 north-america-latest.osm.pbf
 touch /var/lib/mod_tile/planet-import-complete
 service renderd restart
