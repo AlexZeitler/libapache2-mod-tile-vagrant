@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "hashicorp/precise64"
+  config.vm.box = "http://ulmus/osm/package.box"
   config.vm.provision :shell, :path => "bootstrap.sh"
   config.vm.network :forwarded_port, host: 8080, guest: 80
   # Disable automatic box update checking. If you disable this, then
