@@ -35,5 +35,16 @@ wget http://download.geofabrik.de/north-america-latest.osm.pbf
 # Note 8000 is 8gb of RAM for cache and 6 is the number of processors to use. 
 # So if running in smaller VM reduce as appropriate.
 sudo -u postgres osm2pgsql --slim -C 9000 --cache-strategy sparse --number-processes 6 north-america-latest.osm.pbf
+
+sudo -u postgres psql -d gis -c "ALTER TABLE geometry_columns OWNER TO \"www-data\";"
+sudo -u postgres psql -d gis -c "ALTER TABLE planet_osm_line OWNER TO \"www-data\";"
+sudo -u postgres psql -d gis -c "ALTER TABLE planet_osm_nodes OWNER TO \"www-data\";"
+sudo -u postgres psql -d gis -c "ALTER TABLE planet_osm_point OWNER TO \"www-data\";"
+sudo -u postgres psql -d gis -c "ALTER TABLE planet_osm_polygon OWNER TO \"www-data\";"
+sudo -u postgres psql -d gis -c "ALTER TABLE planet_osm_rels OWNER TO \"www-data\";"
+sudo -u postgres psql -d gis -c "ALTER TABLE planet_osm_roads OWNER TO \"www-data\";"
+sudo -u postgres psql -d gis -c "ALTER TABLE planet_osm_ways OWNER TO \"www-data\";"
+sudo -u postgres psql -d gis -c "ALTER TABLE spatial_ref_sys OWNER TO \"www-data\";"
+
 touch /var/lib/mod_tile/planet-import-complete
 service renderd restart
